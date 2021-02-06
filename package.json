@@ -1,0 +1,100 @@
+{
+  "name": "umi-electron",
+  "version": "1.0.0",
+  "description": "an example based on umijs + electron",
+  "main": "./dist/main/main.js",
+  "private": true,
+  "build": {
+    "productName": "NetSend",
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "mac": {
+      "category": "your.app.category.type"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "output": "release"
+    },
+    "appId": "com.cn.littlestrong.demo",
+    "asar": false
+  },
+  "scripts": {
+    "start": "npm run build-main-dev && run-electron ./dist/main/main.js",
+    "start:main": "electron-webpack dev",
+    "start:renderer": "cross-env APP_ROOT=src/renderer umi dev",
+    "build-main-prod": "NODE_ENV=production webpack --config ./build/webpack.main.prod.config.js",
+    "build-main-dev": "NODE_ENV=development webpack --config ./build/webpack.main.config.js",
+    "build:renderer": "cross-env APP_ROOT=src/renderer umi build",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "debug:main": "run-electron --inspect=5858 -w ./dist/main/main.js",
+    "pack": "npm run build:renderer && npm run build-main-prod && electron-builder --dir",
+    "exe": "electron-builder --win",
+    "dist": "electron-builder",
+    "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
+  },
+  "keywords": [
+    "Electron",
+    "umi",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "devDependencies": {
+    "@ant-design/icons": "^4.4.0",
+    "@umijs/preset-react": "^1.7.13",
+    "classnames": "^2.2.6",
+    "cross-env": "^5.1.1",
+    "electron": "^8.0.0",
+    "electron-builder": "^22.3.2",
+    "electron-debug": "^3.0.1",
+    "electron-webpack": "^2.7.4",
+    "koa": "^2.13.1",
+    "koa-static": "^5.0.0",
+    "prettier": "1.19.0",
+    "prop-types": "^15.7.2",
+    "qrcode.react": "^1.0.1",
+    "query-string": "^6.10.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
+    "run-electron": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "umi": "^3.3.7",
+    "webpack": "4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.0.0",
+    "koa-bodyparser": "^4.3.0"
+  },
+  "electronWebpack": {
+    "main": {
+      "sourceDirectory": "src/main"
+    },
+    "renderer": {
+      "sourceDirectory": null
+    }
+  }
+}

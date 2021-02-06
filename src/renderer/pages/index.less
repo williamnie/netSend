@@ -1,0 +1,35 @@
+.wrap {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background: #282a3e;
+  .wifiWrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .wifi {
+      font-size: 96px;
+      color: #1890ff;
+    }
+  }
+}
+:global {
+  .ant-notification-topRight {
+    margin-right: 10px;
+    margin-top: 20px;
+
+    .ant-notification-notice {
+      border-radius: 10px;
+      .ant-notification-notice-content {
+        cursor: pointer;
+      }
+      .ant-notification-notice-description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}

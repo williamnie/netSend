@@ -1,0 +1,58 @@
+.fileBorder {
+  border: 2px solid white;
+  background-color: white;
+  border-radius: 12px;
+  max-width: 325px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  p {
+    margin: 0;
+  }
+  .files {
+    background-color: royalblue;
+    // background-color: #7395ec;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    .fileName {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .filePath {
+      overflow: hidden;
+      white-space: normal;
+      word-break: break-all;
+    }
+    .allInfo {
+      padding: 10px 0;
+    }
+    .toolBox {
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid white;
+      margin-top: 10px;
+      .tool {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        border-right: 1px solid white;
+        cursor: pointer;
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+  }
+}
+// .showAll{
+//     height: ;
+// }

@@ -1,0 +1,40 @@
+.fileList {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  z-index: 2;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .switch {
+    cursor: pointer;
+    position: absolute;
+    top: 80px;
+    right: 10px;
+    font-size: 20px;
+    color: white;
+    transition: right 0.5s;
+  }
+  .fileBox {
+    // width: 325px;
+    position: absolute;
+    right: -335px;
+    padding-top: 40px;
+    height: 100%;
+    overflow-y: scroll;
+    transition: right 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .show {
+    right: 0px;
+    transition: right 0.5s;
+  }
+  .showIcon {
+    right: 345px;
+    transition: right 0.5s;
+    color: white;
+  }
+}
