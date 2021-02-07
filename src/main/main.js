@@ -15,7 +15,7 @@ function createWindow() {
     fullscreenable: false,
     titleBarStyle: 'hiddenInset',
     // transparent: true,
-    frame: false,
+    // frame: false,
     webPreferences: {
       nodeIntegration: true,
       // nodeIntegrationInWorker: true,
