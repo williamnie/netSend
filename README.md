@@ -1,11 +1,11 @@
-# umi-electron-javascript
+# NetSend
 
-### 一个基于umijs + electron + javascript的模板
+### 一个基于 umijs + electron + javascript 构建的内网文件传输工具
 
-## 主要特性
-- 支持整个应用的热重载
-- 依赖升级至umi3.2.1,
-- 默认安装的是@umijs/preset-react 插件集，可根据自身需要安装
+## 功能介绍
+
+
+## 二次开发介绍
 
 ## 项目结构
 
@@ -42,9 +42,10 @@
 ```
 
 ## 环境搭建
+
 ### 安装
 
-然后通过yarn下载依赖
+然后通过 yarn 下载依赖
 
 ```javascript
   $ yarn
@@ -64,9 +65,9 @@
   $ yarn start:main
 ```
 
-### 如何使用node的api
+### 如何使用 node 的 api
 
-需要在 src/renderer/public/renderer.js中引入相关的api才可以
+需要在 src/renderer/public/renderer.js 中引入相关的 api 才可以
 
 ### 打包
 
@@ -75,7 +76,7 @@
   $ npm run exe   // 打包windows
 ```
 
-如果想把代码打包成一个dmg文件或者zip文件，可以执行以下命令
+如果想把代码打包成一个 dmg 文件或者 zip 文件，可以执行以下命令
 
 ```javascript
   $ npm run dist
@@ -83,9 +84,9 @@
 
 ### 打包配置说明 [`package.json`](./package.json)
 
-[electron-builder-参数参考](https://www.electron.build/configuration/configuration) 
+[electron-builder-参数参考](https://www.electron.build/configuration/configuration)
 
-[category-Mac分类参考](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8)
+[category-Mac 分类参考](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/LaunchServicesKeys.html#//apple_ref/doc/uid/TP40009250-SW8)
 
 ```js
 {
@@ -98,7 +99,7 @@
       "package.json"
     ],
     "mac": { // 打包mac版本
-      "category": "your.app.category.type", // mac app分类 
+      "category": "your.app.category.type", // mac app分类
       "target": [ // 打包类型
         "dmg",
         "zip"
