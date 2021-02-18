@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "an example based on umijs + electron",
   "main": "./dist/main/main.js",
-  "private": true,
   "build": {
     "productName": "NetSend",
     "files": [
@@ -16,13 +15,7 @@
     },
     "win": {
       "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
+        "nsis"
       ]
     },
     "nsis": {
@@ -47,8 +40,8 @@
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "debug:main": "run-electron --inspect=5858 -w ./dist/main/main.js",
     "pack": "npm run build:renderer && npm run build-main-prod && electron-builder --dir",
-    "exe": "electron-builder --win",
-    "dist": "electron-builder",
+    "exe": "npm run build:renderer && npm run build-main-prod && electron-builder --win",
+    "dist": "npm run build:renderer && npm run build-main-prod && electron-builder",
     "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
   },
   "keywords": [
@@ -62,6 +55,7 @@
   "devDependencies": {
     "@ant-design/icons": "^4.4.0",
     "@umijs/preset-react": "^1.7.13",
+    "babel-loader": "^8.2.2",
     "classnames": "^2.2.6",
     "cross-env": "^5.1.1",
     "electron": "^8.0.0",

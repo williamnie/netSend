@@ -9,6 +9,10 @@ export default {
     hmr: false,
   },
   title: 'netSend',
+  locale: {
+    default: 'zh-CN',
+    antd: false,
+  },
 
   alias: buildrc.webpack.alias,
   ignoreMomentLocale: true,
