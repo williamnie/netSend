@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-02-02 15:51:58
- * @LastEditTime: 2021-02-05 16:50:38
+ * @LastEditTime: 2021-02-19 23:20:42
  * @LastEditors: xiaobei
  * @desc: 我为啥要写这么复杂🤣🤣🤣
  */
@@ -11,7 +11,7 @@ import { genId } from './helper';
 export default class DB {
 
     constructor() {
-        this.dbPath = './db.json';
+        this.dbPath = `${__dirname}/db.json`;
         this.state = []; //数据集合
         this.idIndex = null // 以id为key的索引
         this.nameIndex = null // 以name为key的索引
