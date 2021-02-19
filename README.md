@@ -9,6 +9,9 @@ An intranet file transfer tool based on umijs + electron + javascript
 ![home.png](./home.png)
 ![files.png](./files.png)
 
+Support different systems to transfer files.
+Transfer files between computers or mobile phones, no size limit.
+
 ## How to develop
 
 ### Project structure
