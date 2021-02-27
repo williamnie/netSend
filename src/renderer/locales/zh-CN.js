@@ -10,5 +10,6 @@ export default {
     successMsg: '文件地址 - 点击复制',
     fileName: '名称',
     filePath: '地址',
-    fileSize: '大小'
+    fileSize: '大小',
+    manyIps: '检测到有多个ip，进入详情页复制'
 };

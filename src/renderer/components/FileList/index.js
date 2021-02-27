@@ -1,17 +1,17 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-02-04 16:06:03
- * @LastEditTime: 2021-02-05 17:31:40
+ * @LastEditTime: 2021-02-28 00:16:57
  * @LastEditors: xiaobei
  */
-import React, { useState, } from 'react';
+import React, { useState, useImperativeHandle, forwardRef, } from 'react';
 import { ImportOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
 import { request } from 'umi';
 import { apiConfig } from '@/utils/config';
 import FileItem from '../FIleItem'
 import styles from './index.less';
-const FileList = (props) => {
+const FileList = (props, ref) => {
     const [visible, setVisible] = useState(false);
     const [fileList, setFileList] = useState([]);
 
@@ -23,6 +23,12 @@ const FileList = (props) => {
             setFileList(data.reverse())
         }
     }
+
+    useImperativeHandle(ref, () => ({
+        // 将这个方法暴露给父组件
+        visible,
+        getFileList,
+    }));
 
     return (
         <div className={classnames(styles.fileList)}>
@@ -41,4 +47,4 @@ const FileList = (props) => {
     )
 }
 
-export default FileList;
+export default forwardRef(FileList);

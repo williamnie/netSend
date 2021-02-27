@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { apiConfig, baseFileUrl } from '@/utils/config';
+import { apiConfig, baseFileUrl, getIPAddress } from '@/utils/config';
 import { Popover } from 'antd';
 import classnames from 'classnames';
 import { CopyOutlined, QrcodeOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -13,9 +13,11 @@ const FileItem = (props) => {
     const intl = useIntl()
     const { data, getFileList } = props
     const [showAllInfo, setShowAllInfo] = useState(false);
+    const urls = baseFileUrl()
+    const ips = getIPAddress()
 
-    const copyFile = (item) => {
-        clipboard.writeText(`${baseFileUrl}/${item.id}/${item.name}`)
+    const copyFile = (url,item) => {
+        clipboard.writeText(`${url}/${item.id}/${item.name}`)
     }
 
     const deleteFileById = (id) => {
@@ -54,17 +56,45 @@ const FileItem = (props) => {
                         </div>
                         <div
                             className={styles.tool}
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                copyFile(data)
-                            }}
                         >
-                            <CopyOutlined />
+                            {urls.length > 1
+                                ?
+                                <Popover
+                                    placement="bottom"
+                                    overlayClassName='manyUrls'
+                                    content={
+                                        <div style={{ width: 300 }}>
+                                            {urls.map((item) => {
+                                                return (
+                                                    <div className='realUrl'>
+                                                        <p>{`${item}/${data.id}/${data.name}`}</p>
+                                                        <CopyOutlined onClick={(e) => {
+                                                            e.stopPropagation()
+                                                            copyFile(item,data)
+                                                        }} />
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>} trigger="hover">
+                                    <CopyOutlined />
+                                </Popover>
+                                :
+                                <CopyOutlined onClick={(e) => {
+                                    e.stopPropagation()
+                                    copyFile(urls[0],data)
+                                }} />}
                         </div>
                         <div
                             className={styles.tool}
                         >
-                            <Popover content={<QRCode value={`${baseFileUrl}/${data.id}/${data.name}`} />} trigger="hover">
+                            <Popover content={<div>{urls.map((item, index) => {
+                                return (
+                                    <>
+                                        <p>ip:{ips[index]}</p>
+                                        <QRCode value={`${item}/${data.id}/${data.name}`} />
+                                    </>
+                                )
+                            })}</div>} trigger="hover">
                                 <QrcodeOutlined />
                             </Popover>
 

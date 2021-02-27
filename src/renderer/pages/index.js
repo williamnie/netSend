@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { WifiOutlined } from '@ant-design/icons';
 import FileList from '@/components/FileList';
 import { request, useIntl, setLocale, getLocale } from 'umi';
@@ -11,6 +11,7 @@ import styles from './index.less';
 const Index = (props) => {
 
   const intl = useIntl();
+  const fileListRef = useRef({})
 
   ipcRenderer.on('mainChangeLanguage', (event, arg) => {
     setLocale(arg, false);
@@ -36,13 +37,13 @@ const Index = (props) => {
         }
       })
       if (data && data.id) {
+        const urls = baseFileUrl();
         notification.success({
           message: format('successMsg'),
-          description: `${baseFileUrl}/${data.id}/${data.name}`,
+          description: urls.length > 1 ? format('manyIps') : `${urls[0]}/${data.id}/${data.name}`,
           onClick: () => {
-            clipboard.writeText(`${baseFileUrl}/${data.id}/${data.name}`)
+            urls.length === 1 && clipboard.writeText(`${urls[0]}/${data.id}/${data.name}`)
           },
-          // duration: 666
         })
       }
     } else {
@@ -55,6 +56,8 @@ const Index = (props) => {
   const onDrop = event => {
     const { path } = event.dataTransfer.files[0];
     saveFile(path)
+    const { visible, getFileList, } = fileListRef.current
+    visible && getFileList && getFileList(true)
   };
 
   const onDragOver = event => {
@@ -65,19 +68,16 @@ const Index = (props) => {
     return intl.formatMessage({ id })
   }
 
-
   return (
     <div className={styles.wrap} onDrop={onDrop}
       onDragOver={onDragOver}>
-      <FileList />
+      <FileList ref={fileListRef} />
       <div
         className={styles.wifiWrap}
-
       >
         <WifiOutlined className={styles.wifi} />
         <h2 style={{ color: 'white' }}>{format('mainTip')}</h2>
       </div>
-
     </div>
   );
 }

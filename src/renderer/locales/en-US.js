@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-02-18 15:04:12
- * @LastEditTime: 2021-02-18 16:18:57
+ * @LastEditTime: 2021-02-27 23:47:37
  * @LastEditors: xiaobei
  */
 export default {
@@ -10,5 +10,6 @@ export default {
     successMsg: 'File address - Click copy',
     fileName: 'Name',
     filePath: 'Path',
-    fileSize: 'Size'
+    fileSize: 'Size',
+    manyIps: 'Multiple ips are detected,enter the details page to copy'
 };
