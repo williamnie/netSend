@@ -17,7 +17,7 @@ const FileItem = (props) => {
     const ips = getIPAddress()
 
     const copyFile = (url,item) => {
-        clipboard.writeText(`${url}/${item.id}/${item.name}`)
+        clipboard.writeText(`${url}/${item.id}/${encodeURIComponent(data.name)}`)
     }
 
     const deleteFileById = (id) => {

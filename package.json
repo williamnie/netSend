@@ -1,6 +1,6 @@
 {
-  "name": "umi-electron",
-  "version": "1.0.0",
+  "name": "NetSend",
+  "version": "1.1.0",
   "description": "an example based on umijs + electron",
   "main": "./dist/main/main.js",
   "build": {
@@ -42,6 +42,7 @@
     "pack": "npm run build:renderer && npm run build-main-prod && electron-builder --dir",
     "exe": "npm run build:renderer && npm run build-main-prod && electron-builder --win",
     "dist": "npm run build:renderer && npm run build-main-prod && electron-builder",
+    "release": "npm run build:renderer && npm run build-main-prod && electron-builder && electron-builder --win",
     "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
   },
   "keywords": [

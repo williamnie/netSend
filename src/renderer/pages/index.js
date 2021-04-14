@@ -38,13 +38,17 @@ const Index = (props) => {
       })
       if (data && data.id) {
         const urls = baseFileUrl();
-        notification.success({
-          message: format('successMsg'),
-          description: urls.length > 1 ? format('manyIps') : `${urls[0]}/${data.id}/${data.name}`,
-          onClick: () => {
-            urls.length === 1 && clipboard.writeText(`${urls[0]}/${data.id}/${data.name}`)
-          },
-        })
+        // 如果list是展开状态，就不在弹出message
+        const { visible } = fileListRef.current
+        if (!visible) {
+          notification.success({
+            message: format('successMsg'),
+            description: urls.length > 1 ? format('manyIps') : `${urls[0]}/${data.id}/${data.name}`,
+            onClick: () => {
+              urls.length === 1 && clipboard.writeText(`${urls[0]}/${data.id}/${encodeURIComponent(data.name)}`)
+            },
+          })
+        }
       }
     } else {
       notification.error({
