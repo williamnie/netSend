@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-01-29 15:43:57
- * @LastEditTime: 2021-05-11 15:19:25
+ * @LastEditTime: 2021-05-11 15:33:39
  * @LastEditors: xiaobei
  */
 import Koa from 'koa';
@@ -79,7 +79,6 @@ app
     .use(bodyParser())
     .use(router.routes())
     .use(router.allowedMethods());
-
 
 const startServer = async () => {
     if (!serverStatus) {
