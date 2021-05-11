@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-01-29 15:43:57
- * @LastEditTime: 2021-04-14 15:00:41
+ * @LastEditTime: 2021-05-11 15:17:42
  * @LastEditors: xiaobei
  */
 import Koa from 'koa';
@@ -21,7 +21,7 @@ const defaultPort = 23456;
 const parseRange = (range, size) => {
     if (range) {
         const [start, end] = range.replace('bytes=', '').split('-')
-        return { start: +start, end: +end }
+        return { start: +start, end: +end || size }
     } else {
         return { start: 0, end: size }
     }
@@ -35,6 +35,7 @@ router.get('/file/:id/:name', async (ctx, next) => {
     // 拿到文件名，检查文件是否存在，存在则返回文件流，不存在404
     const file = await db.findById(id)
     const range = ctx.get('Range')
+    console.log('range', range);
     if (file) {
         try {
             // 如果文件不存在，则stat会报错，直接404
