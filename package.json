@@ -1,7 +1,7 @@
 {
   "name": "NetSend",
-  "version": "1.1.0",
-  "description": "an example based on umijs + electron",
+  "version": "1.1.1",
+  "description": "net send",
   "main": "./dist/main/main.js",
   "build": {
     "productName": "NetSend",
