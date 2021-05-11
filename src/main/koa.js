@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-01-29 15:43:57
- * @LastEditTime: 2021-05-11 15:17:42
+ * @LastEditTime: 2021-05-11 15:19:25
  * @LastEditors: xiaobei
  */
 import Koa from 'koa';
@@ -26,7 +26,6 @@ const parseRange = (range, size) => {
         return { start: 0, end: size }
     }
 }
-
 
 let serverStatus
 
