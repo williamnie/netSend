@@ -53,19 +53,19 @@
     }
   }
 }
-:global{
-  .manyUrls{
+:global {
+  .manyUrls {
     width: 380px;
-    .ant-popover-content{
+    .ant-popover-content {
       width: 350px;
     }
   }
-  .realUrl{
+  .realUrl {
     display: flex;
     width: 300px;
     align-items: center;
     margin-bottom: 10px;
-    p{
+    p {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -73,7 +73,15 @@
       margin-bottom: 0px;
     }
   }
+  .moreQRCode {
+    max-width: 350px;
+    height: 300px;
+    overflow-y: scroll;
+    border-radius: 5px;
+  }
+  .ant-popover {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
-// .showAll{
-//     height: ;
-// }

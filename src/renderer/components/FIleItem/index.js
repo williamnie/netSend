@@ -87,14 +87,14 @@ const FileItem = (props) => {
                         <div
                             className={styles.tool}
                         >
-                            <Popover placement="bottomRight" content={
-                                <div>
+                            <Popover overlayClassName='moreQRCode' placement="bottomRight" content={
+                                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly' }}>
                                     {urls.map((item, index) => {
                                         return (
-                                            <>
+                                            <div>
                                                 <p>ip:{ips[index]}</p>
                                                 <QRCode value={`${item}/${data.id}/${data.name}`} />
-                                            </>
+                                            </div>
                                         )
                                     })}
                                 </div>
