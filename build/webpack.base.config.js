@@ -1,6 +1,15 @@
 'use strict';
 
 const path = require('path');
+const { dependencies } = require('../package.json')
+
+const genExternalPackages = () => {
+  const external = {}
+  for (const key in dependencies) {
+    external[key] = `require('${key}')`
+  }
+  return external
+}
 
 module.exports = {
   output: {
@@ -14,5 +23,6 @@ module.exports = {
   resolve: {
     extensions: ['.jsx', '.ts', '.js', '.json'],
   },
-  devtool: 'eval',
+  devtool: 'source-map',
+  externals: genExternalPackages()
 };

@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-01-29 15:43:57
- * @LastEditTime: 2021-05-11 15:33:39
+ * @LastEditTime: 2021-10-12 17:09:09
  * @LastEditors: xiaobei
  */
 import Koa from 'koa';
@@ -34,7 +34,6 @@ router.get('/file/:id/:name', async (ctx, next) => {
     // 拿到文件名，检查文件是否存在，存在则返回文件流，不存在404
     const file = await db.findById(id)
     const range = ctx.get('Range')
-    console.log('range', range);
     if (file) {
         try {
             // 如果文件不存在，则stat会报错，直接404
@@ -44,6 +43,7 @@ router.get('/file/:id/:name', async (ctx, next) => {
             ctx.set('Content-Type', 'application/octet-stream');
             ctx.set('Content-Disposition', 'attachment; filename=' + encodeURIComponent(filename));
             ctx.set('Content-Length', end === stats.size ? stats.size : end + 1);
+            ctx.set('Content-Range', `bytes ${start}-${end}/${stats.size}`);
             ctx.body = fs.createReadStream(file.path, {
                 start,
                 end
@@ -75,7 +75,7 @@ router.post('/api/createFile', async (ctx, next) => {
 
 
 app
-    .use(cors())
+    .use(cors({ exposeHeaders: '*', }))
     .use(bodyParser())
     .use(router.routes())
     .use(router.allowedMethods());
@@ -85,7 +85,7 @@ const startServer = async () => {
         const port = await tryUsePort(defaultPort)
         app.listen(port, '0.0.0.0', () => {
             serverStatus = true
-            console.log('server start success');
+            console.log(`server start success port: ${port} `);
         })
     }
 }

@@ -67,7 +67,7 @@ function createWindow() {
       nodeIntegration: true,
       enableRemoteModule: true,
       // nodeIntegrationInWorker: true,
-      preload: path.join(__dirname, './public/renderer.js')
+      // preload: path.join(__dirname, './public/renderer.js')
     }
   });
 

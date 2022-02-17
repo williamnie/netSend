@@ -16,7 +16,7 @@ const FileItem = (props) => {
     const urls = baseFileUrl()
     const ips = getIPAddress()
 
-    const copyFile = (url,item) => {
+    const copyFile = (url, item) => {
         clipboard.writeText(`${url}/${item.id}/${encodeURIComponent(data.name)}`)
     }
 
@@ -70,7 +70,7 @@ const FileItem = (props) => {
                                                         <p>{`${item}/${data.id}/${data.name}`}</p>
                                                         <CopyOutlined onClick={(e) => {
                                                             e.stopPropagation()
-                                                            copyFile(item,data)
+                                                            copyFile(item, data)
                                                         }} />
                                                     </div>
                                                 )
@@ -81,20 +81,24 @@ const FileItem = (props) => {
                                 :
                                 <CopyOutlined onClick={(e) => {
                                     e.stopPropagation()
-                                    copyFile(urls[0],data)
+                                    copyFile(urls[0], data)
                                 }} />}
                         </div>
                         <div
                             className={styles.tool}
                         >
-                            <Popover content={<div>{urls.map((item, index) => {
-                                return (
-                                    <>
-                                        <p>ip:{ips[index]}</p>
-                                        <QRCode value={`${item}/${data.id}/${data.name}`} />
-                                    </>
-                                )
-                            })}</div>} trigger="hover">
+                            <Popover placement="bottomRight" content={
+                                <div>
+                                    {urls.map((item, index) => {
+                                        return (
+                                            <>
+                                                <p>ip:{ips[index]}</p>
+                                                <QRCode value={`${item}/${data.id}/${data.name}`} />
+                                            </>
+                                        )
+                                    })}
+                                </div>
+                            } trigger="hover">
                                 <QrcodeOutlined />
                             </Popover>
 
