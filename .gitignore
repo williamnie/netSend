@@ -2,6 +2,8 @@ node_modules
 dist
 src/renderer/pages/.umi
 src/renderer/pages/.umi-production
+src/renderer/.umi
+src/renderer/.umi-production
 release
 yarn-error.log
 yarn.lock
