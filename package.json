@@ -3,6 +3,11 @@
   "version": "1.1.3",
   "description": "net send",
   "main": "./dist/main/main.js",
+  "homepage": "https://github.com/williamnie/netSend",
+  "author": {
+    "name": "xiaobei",
+    "email": "yebeixiaohai@gmail.com"
+  },
   "build": {
     "productName": "NetSend",
     "files": [
@@ -47,6 +52,8 @@
     "pack-mac": "npm run build:renderer && npm run build-main-prod && electron-builder -m",
     "---- 构建 windows 操作系统平台包 ----": "---- 构建 windows 操作系统平台包 ----",
     "pack-exe": "npm run build:renderer && npm run build-main-prod && electron-builder --win",
+    "---- 构建 linux 操作系统平台包 ----": "---- 构建 linux 操作系统平台包 ----",
+    "pack-linux": "npm run build:renderer && npm run build-main-prod && electron-builder --linux deb tar.xz",
     "prettier": "prettier --list-different \"./**/*.{ts,tsx,js,jsx,less}\""
   },
   "keywords": [
