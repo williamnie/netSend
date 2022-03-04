@@ -74,6 +74,7 @@
     "electron-builder": "^22.9.1",
     "electron-debug": "^3.0.1",
     "electron-webpack": "^2.8.2",
+    "moment": "^2.29.1",
     "prettier": "1.19.0",
     "qrcode.react": "^1.0.1",
     "react": "^16.12.0",
@@ -85,9 +86,9 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "koa": "^2.13.4",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.1.1",
+    "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0"
   },
   "electronWebpack": {

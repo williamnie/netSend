@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-02-04 16:06:03
- * @LastEditTime: 2022-03-04 17:32:48
+ * @LastEditTime: 2022-03-04 18:34:22
  * @LastEditors: xiaobei
  */
 import React, { useState, useImperativeHandle, forwardRef, } from 'react';
@@ -9,7 +9,7 @@ import { ImportOutlined } from '@ant-design/icons';
 import classnames from 'classnames';
 import { request } from 'umi';
 import { apiConfig } from '@/utils/config';
-import FileItem from '../FileItem/index'
+import FileItem from '../FileItems'
 import styles from './index.less';
 const FileList = (props, ref) => {
     const [visible, setVisible] = useState(false);
