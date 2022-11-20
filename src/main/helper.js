@@ -35,7 +35,6 @@ export const tryUsePort = async (_port) => {
             _port++;
         }
     }
-    global.goPort = { port }
     return port
 }
 

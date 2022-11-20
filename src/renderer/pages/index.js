@@ -1,34 +1,48 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { WifiOutlined } from '@ant-design/icons';
 import FileList from '@/components/FileList';
-import { request, useIntl, setLocale, getLocale } from 'umi';
-import { notification } from 'antd';
-import { apiConfig, baseFileUrl } from '@/utils/config';
+import { history, request, useIntl, setLocale, getLocale } from '@umijs/max';
+import { notification, message, } from 'antd';
+import { apiConfig, baseFileUrl, } from '@/utils/config';
+import Setting from '@/components/Setting'
+import ShowIps from '@/components/ShowIps';
 import styles from './index.less';
-
 
 const Index = (props) => {
 
   const intl = useIntl();
-  const fileListRef = useRef({})
+  const fileListRef = useRef({});
 
-  ipcRenderer.on('mainChangeLanguage', (event, arg) => {
-    setLocale(arg, false);
-    window.localStorage.setItem('usl', true)
-  });
+  useEffect(() => {
+
+    if (window.location.pathname === '/help') {
+      history.push('/help')
+    }
+  }, [])
+
+
 
   useEffect(() => {
     const lang = getLocale()
-    ipcRenderer.sendSync('syncLanguage', lang)
+    const { setLang, changeLang, serverState } = window.electronApi
+    setLang(lang)
+    changeLang((event, arg) => {
+      setLocale(arg, false);
+      window.localStorage.setItem('usl', true)
+    })
+    serverState((event, arg) => {
+      window.localStorage.setItem('serverConfig', JSON.stringify(arg))
+    })
   }, []);
 
   const saveFile = async (filePath) => {
     // 检测是否是文件夹，如果是，则报错，不是则存储
-    const stats = fs.statSync(filePath)
-    const fileName = path.basename(filePath)
-    if (stats.isFile()) {
-      const data = await request(apiConfig.save, {
+    const { statSync, basename, copy, isFile } = window.electronApi
+    const stats = statSync(filePath)
+    const fileName = basename(filePath)
+    if (isFile(filePath)) {
+      const data = await request(apiConfig().save, {
         method: 'post',
         data: {
           name: fileName,
@@ -39,13 +53,22 @@ const Index = (props) => {
       if (data && data.id) {
         const urls = baseFileUrl();
         // 如果list是展开状态，就不在弹出message
-        const { visible } = fileListRef.current
+        const { visible, openList } = fileListRef.current
         if (!visible) {
           notification.success({
+            key: 'suc',
             message: format('successMsg'),
             description: urls.length > 1 ? format('manyIps') : `${urls[0]}/${data.id}/${data.name}`,
             onClick: () => {
-              urls.length === 1 && clipboard.writeText(`${urls[0]}/${data.id}/${encodeURIComponent(data.name)}`)
+              if (urls.length === 1) {
+                copy(`${urls[0]}/${data.id}/${encodeURIComponent(data.name)}`)
+                message.success(format('copySuccess'))
+                notification.destroy('suc')
+              } else if (urls.length > 1) {
+                openList()
+                notification.destroy('suc')
+              }
+
             },
           })
         }
@@ -72,6 +95,8 @@ const Index = (props) => {
     return intl.formatMessage({ id })
   }
 
+
+
   return (
     <div className={styles.wrap} onDrop={onDrop}
       onDragOver={onDragOver}>
@@ -82,6 +107,8 @@ const Index = (props) => {
         <WifiOutlined className={styles.wifi} />
         <h2 style={{ color: 'white' }}>{format('mainTip')}</h2>
       </div>
+      <Setting />
+      <ShowIps />
     </div>
   );
 }

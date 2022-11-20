@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { apiConfig, baseFileUrl, getIPAddress } from '@/utils/config';
-import { Popover } from 'antd';
+import { Popover, message } from 'antd';
 import classnames from 'classnames';
 import { CopyOutlined, QrcodeOutlined, DeleteOutlined } from '@ant-design/icons';
-import { request, useIntl } from 'umi';
+import { request, useIntl } from '@umijs/max';
 import { conver } from '@/utils/helper';
 import QRCode from 'qrcode.react';
 import styles from './index.less';
@@ -17,11 +17,12 @@ const FileItem = (props) => {
     const ips = getIPAddress()
 
     const copyFile = (url, item) => {
-        clipboard.writeText(`${url}/${item.id}/${encodeURIComponent(data.name)}`)
+        window.electronApi.copy(`${url}/${item.id}/${encodeURIComponent(data.name)}`)
+        message.success(format('copySuccess'))
     }
 
     const deleteFileById = (id) => {
-        request(`${apiConfig.deleteFile.replace(':id', id)}`, {
+        request(`${apiConfig().deleteFile.replace(':id', id)}`, {
             method: 'delete',
         }).then((data) => {
             console.log(data);
