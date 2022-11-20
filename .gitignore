@@ -13,3 +13,4 @@ yarn.lock
 src/renderer/.umi/
 db.json
 test.js
+src/renderer/node_modules

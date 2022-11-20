@@ -2,8 +2,10 @@ import { app, BrowserWindow, Menu, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import startServer from './koa';
+import { tryUsePort } from './helper';
 
 
+const defaultPort = 23456;
 let mainWindow = null;
 const isMac = process.platform === 'darwin';
 const isDev = process.env.NODE_ENV === 'development';
@@ -31,29 +33,27 @@ const template = [
       { type: 'separator' },
     ]
   }] : []),
-  {
-    label: 'language',
-    submenu: [
-      {
-        id: 'zh-CN',
-        label: '中文',
-        type: 'radio',
-        checked: false,
-        click: (menuItem) => { mainWindow.webContents.send('mainChangeLanguage', menuItem.id); }
-      },
-      {
-        id: 'en-US',
-        label: 'English',
-        type: 'radio',
-        checked: false,
-        click: (menuItem) => { mainWindow.webContents.send('mainChangeLanguage', menuItem.id); }
-      }
-    ],
-  },
+  // {
+  //   label: 'language',
+  //   submenu: [
+  //     {
+  //       id: 'zh-CN',
+  //       label: '中文',
+  //       type: 'radio',
+  //       checked: false,
+  //       click: (menuItem) => { mainWindow.webContents.send('mainChangeLanguage', menuItem.id); }
+  //     },
+  //     {
+  //       id: 'en-US',
+  //       label: 'English',
+  //       type: 'radio',
+  //       checked: false,
+  //       click: (menuItem) => { mainWindow.webContents.send('mainChangeLanguage', menuItem.id); }
+  //     }
+  //   ],
+  // },
 ]
-
-
-function createWindow() {
+function createWindow(port, lang) {
   mainWindow = new BrowserWindow({
     height: 736,
     width: 414,
@@ -61,28 +61,33 @@ function createWindow() {
     // fullscreen: false,
     fullscreenable: false,
     titleBarStyle: 'hiddenInset',
+    movable: true,
     // transparent: true,
-    // frame: false,
+    // frame: true,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true,
+      // contextIsolation: true,
       // nodeIntegrationInWorker: true,
-      // preload: path.join(__dirname, './public/renderer.js')
+      preload: isDev ? path.join(app.getAppPath(), '../../src/renderer/public/preload.js') : path.join(app.getAppPath(), './preload.js')
     }
   });
 
   if (isDev) {
-    mainWindow.loadURL('http://localhost:8000/#/');
+    mainWindow.loadURL('http://localhost:8011/#/');
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadURL(
       url.format({
-        pathname: path.join(__dirname, './dist/renderer/index.html'),
+        pathname: path.join(__dirname, './index.html'),
         protocol: 'file:',
         slashes: true,
       }),
     );
+    // mainWindow.webContents.openDevTools();
   }
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('serverStart', { port, lang })
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
@@ -115,11 +120,11 @@ const genMenu = (lang) => {
 }
 
 
-app.on('ready', () => {
-  startServer()
-  createWindow()
+app.on('ready', async () => {
+  const port = await tryUsePort(defaultPort)
+  startServer(port)
   const lang = app.getLocale()
-  global.lang = { lang }
+  createWindow(port, lang)
   genMenu(lang === 'zh-CN' ? 'zh-CN' : 'en-US')
 });
 
