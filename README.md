@@ -1,10 +1,9 @@
 # NetSend
 
-English | [简体中文](./README-CN.md)
+一个基于 umijs + electron + javascript 构建的内网文件传输工具
 
-An intranet file transfer tool based on umijs + electron + javascript
-
-## Introduction
+简体中文 | [English](./README-US.md)
+## 功能介绍
 
 ![home.png](./home.png)
 ![files.png](./files.png)
@@ -13,77 +12,80 @@ An intranet file transfer tool based on umijs + electron + javascript
 
 ### 更新说明
 
-1. Added support for uploading files from client (non-NetSend App-installed device) to server (NetSend App-installed device) . The default storage location is the download directory.
-2. New support for the client and server-side suggested text transfer tool, only support the last 50 text storage, information is multi-party visible, do not filter.
-3. Added native IP functionality to display
-4. Add interactionF
+1. 新增支持从客户端（非NetSend App安装的设备）上传文件到服务端（NetSend App安装的设备），存储位置默认为下载目录。
+2. 新增支持客户端和服务端建议的文本传输工具，仅支持最近50条文本存储，信息多方均可见，未做过滤。
+3. 新增展示本机ip功能
+4. 新增交互
+
+支持跨系统，跨终端设备传输，没有大小限制，只要在同一局域网下就可以
 
 
-Support different systems to transfer files.
-Transfer files between computers or mobile phones, no size limit.
+## 开发介绍
 
-## How to develop
-
-### Project structure
+### 项目结构
 
 ```ssh
 .
 |-- build
-|   |-- icon.icns                         // MacOS icon
-|   |-- icon.ico                          // Windows icon
-|   |-- webpack.base.config.js            // electron-webpack base config
-|   |-- webpack.main.config.js            // electron-webpack dev config
-|   `-- webpack.main.prod.config.js       // electron-webpack prod config
-|-- dist                                  // build dist
-|   |-- main                              // main dist
-|   `-- renderer                          // render dist
-|-- release                               // release folder
-|-- src                                   // code folder
-|   |-- main                              // main process code
-|   |   -- main.js                        // main.js
+|   |-- icon.icns                         // 打包后程序图标 MacOS
+|   |-- icon.ico                          // 打包后程序图标 Windows
+|   |-- webpack.base.config.js            // electron-webpack 基础配置
+|   |-- webpack.main.config.js            // electron-webpack 开发配置
+|   `-- webpack.main.prod.config.js       // electron-webpack 正式配置
+|-- dist                                  // 项目编译输出目录
+|   |-- main                              // 主程序编译目录
+|   `-- renderer                          // 页面编译目录
+|-- release                               // 打包输出目录
+|-- src                                   // 开发目录
+|   |-- main                              // 主程序目录
+|   |   -- main.js                        // 主程序入口
 |   |   -- koa.js                         // koa server
-|   |   -- db.js                          // db
-|   |   -- helper.js                      // public method
-|   `-- renderer                          // umi code
+|   |   -- db.js                          // 简单的数据存储
+|   |   -- helper.js                      // 公用方法
+|   `-- renderer                          // React项目页面
 |       |-- assets
 |       |-- config
-|       |   |-- config.js                 // umijs config
+|       |   |-- config.js                 // umijs配置
 |       |-- pages
 |           `-- index.js
 |       |-- public
-|           `-- renderer.js
-|-- package.json
-`-- README.md
+|           `-- renderer.js               // 如果需要引用node的api，需要在这个js里面提前引入
+|-- package.json                          // 项目依赖以及打包配置
+`-- README.md                             // 项目说明文档
 ```
 
-#### Installation dependencies
+### 环境搭建
+
+#### 安装
+
+然后通过 yarn 下载依赖
 
 ```javascript
   $ yarn
 ```
 
-#### Development
+#### 开发
 
-1. start the rendering process with the following command(default port：8000)
+首先通过以下命令启动渲染进程(默认端口：8000)
 
 ```javascript
   $ yarn start:renderer
 ```
 
-2. start the main process
+然后启动主进程
 
 ```javascript
   $ yarn start:main
 ```
 
-#### build
+#### 打包
 
 ```javascript
   $ npm run pack  // 打包macOS
   $ npm run exe   // 打包windows
 ```
 
-If you want to package the code into a dmg file or zip file, you can execute the following command
+如果想把代码打包成一个 dmg 文件或者 zip 文件，可以执行以下命令
 
 ```javascript
   $ npm run dist
