@@ -115,13 +115,13 @@ export const addTxt = (ctx, txt) => {
         fs.appendFileSync(filePath, ` ${txt}`)
         ctx.body = { code: 0, msg: '发送成功' }
     } catch (error) {
-        console.log(error);
+
         ctx.body = { code: 2, msg: '发送失败' }
     }
 }
 
 export const getTxt = (ctx) => {
-    console.log('filePath', isFileExist());
+
     try {
         let txt = ''
 

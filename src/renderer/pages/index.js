@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { WifiOutlined } from '@ant-design/icons';
 import FileList from '@/components/FileList';
 import { history, request, useIntl, setLocale, getLocale } from '@umijs/max';
-import { notification, message,  } from 'antd';
+import { notification, message, } from 'antd';
 import { apiConfig, baseFileUrl, } from '@/utils/config';
 import Setting from '@/components/Setting'
 import ShowIps from '@/components/ShowIps';
@@ -15,7 +15,7 @@ const Index = (props) => {
   const fileListRef = useRef({});
 
   useEffect(() => {
-    console.log('history', history);
+
     if (window.location.pathname === '/help') {
       history.push('/help')
     }
@@ -39,9 +39,7 @@ const Index = (props) => {
   const saveFile = async (filePath) => {
     // 检测是否是文件夹，如果是，则报错，不是则存储
     const { statSync, basename, copy, isFile } = window.electronApi
-    console.log('statSync', statSync);
     const stats = statSync(filePath)
-    console.log('stats', stats);
     const fileName = basename(filePath)
     if (isFile(filePath)) {
       const data = await request(apiConfig().save, {
@@ -65,10 +63,10 @@ const Index = (props) => {
               if (urls.length === 1) {
                 copy(`${urls[0]}/${data.id}/${encodeURIComponent(data.name)}`)
                 message.success(format('copySuccess'))
-                notification.close('suc')
+                notification.destroy('suc')
               } else if (urls.length > 1) {
                 openList()
-                notification.close('suc')
+                notification.destroy('suc')
               }
 
             },

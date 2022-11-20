@@ -25,6 +25,7 @@ export default {
     uploadHint: 'Support for a single or bulk upload. ',
     uploadSuccess: '{name} file uploaded successfully',
     uploadErr: '{name} file upload failed',
+    uploadTips: "Upload to the client's download directory by default, but uploading folders is not supported.",
     ipTips: 'The tool page address is as follows, please choose, click the IP icon to open the native tool page',
     language: 'Setting the Language'
 };

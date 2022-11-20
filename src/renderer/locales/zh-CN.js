@@ -25,6 +25,8 @@ export default {
     uploadHint: '支持单次或批量上传',
     uploadSuccess: '{name}上传成功',
     uploadErr: '{name}上传失败',
+    uploadTips: '默认上传到客户端的下载目录，不支持上传文件夹。',
     ipTips: '工具页地址如下，请自行选择，单击IP图标打开本机工具页',
-    language: '设置语言'
+    language: '设置语言',
+
 };

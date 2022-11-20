@@ -20,7 +20,7 @@ const Help = (props) => {
             children: <ShearPlate />,
         },
     ]
-    if (window?.location?.host?.includes('127.0.0.1') || window?.location?.host?.includes('localhost')) {
+    if (window?.location?.host?.includes('127.0.0.1')) {
         tabConfig = [
             {
                 label: formatMessage({ id: 'shearPlate' }),

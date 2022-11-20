@@ -8,6 +8,16 @@ An intranet file transfer tool based on umijs + electron + javascript
 
 ![home.png](./home.png)
 ![files.png](./files.png)
+![upload.jpg](./upload.jpg)
+![plate.jpg](./plate.jpg)
+
+### 更新说明
+
+1. Added support for uploading files from client (non-NetSend App-installed device) to server (NetSend App-installed device) . The default storage location is the download directory.
+2. New support for the client and server-side suggested text transfer tool, only support the last 50 text storage, information is multi-party visible, do not filter.
+3. Added native IP functionality to display
+4. Add interactionF
+
 
 Support different systems to transfer files.
 Transfer files between computers or mobile phones, no size limit.

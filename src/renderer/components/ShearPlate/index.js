@@ -30,7 +30,7 @@ const ShearPlate = (props) => {
 
     return (
         <div className={styles.shearPlateWrap}>
-            <Alert message={formatMessage({ id: 'tips' })} type="warning" showIcon />
+            <Alert message={formatMessage({ id: 'tips' })} type="info" showIcon />
             <div className={styles.header}>
                 <AddTxt />
                 <Button onClick={run} style={{ marginLeft: 20 }} danger>{formatMessage({ id: 'startReq' })}</Button>

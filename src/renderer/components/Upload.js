@@ -1,6 +1,6 @@
 import React from 'react';
 import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
+import { message, Upload, Alert } from 'antd';
 import { useIntl } from '@umijs/max';
 
 const { Dragger } = Upload;
@@ -23,15 +23,19 @@ const UploadFiles = () => {
         },
     };
     return (
-        <Dragger {...props}>
-            <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">{formatMessage({ id: 'uploadText' })}</p>
-            <p className="ant-upload-hint">
-                {formatMessage({ id: 'uploadHint' })}
-            </p>
-        </Dragger>
+        <div>
+            <Alert message={formatMessage({ id: 'uploadTips' })} type="info" showIcon style={{ marginBottom: 10 }} />
+            <Dragger {...props}>
+                <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">{formatMessage({ id: 'uploadText' })}</p>
+                <p className="ant-upload-hint">
+                    {formatMessage({ id: 'uploadHint' })}
+                </p>
+            </Dragger>
+        </div>
+
     )
 };
 export default UploadFiles;

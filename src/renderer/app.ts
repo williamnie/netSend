@@ -10,6 +10,7 @@ if(window && !window.electronApi){
         basename: ()=>{},
         copy: ()=>{},
         networkInterfaces: ()=>{},
+        openUrl: ()=>{},
     }
 }
 

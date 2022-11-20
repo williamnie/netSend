@@ -27,8 +27,9 @@ const ShowIps = (props) => {
                 placement="left"
                 title={renderIp}
             >
-                <span className={styles.ipsWrap} onClick={() => {
-                    window.open('127.0.0.1:23456/#/help')
+                <span className={styles.ipsWrap} onClick={async () => {
+                    const res = await window?.electronApi?.openUrl(`http://127.0.0.1:${getPort()}/help`)
+                    console.log('res', res);
                 }}>IP</span>
             </Tooltip>
         </div>
