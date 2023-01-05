@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('electronApi', {
     setLang: (lang) => ipcRenderer.sendSync('syncLanguage', lang),
     changeLang: (cb) => ipcRenderer.on('mainChangeLanguage', cb),
     serverState: (cb) => ipcRenderer.on('serverStart', cb),
+    getConfig: () => ipcRenderer.invoke('getConfig'),
     statSync: (filePath) => fs.statSync(filePath),
     isFile: (filePath) => fs.statSync(filePath).isFile(),
     basename: (filePath) => path.basename(filePath),

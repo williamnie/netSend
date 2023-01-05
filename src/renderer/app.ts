@@ -5,6 +5,7 @@ if(window && !window.electronApi){
         setLang: ()=>{},
         changeLang: ()=>{},
         serverState: ()=>{},
+        getConfig: ()=>{},
         statSync: ()=>{},
         isFile: ()=>{},
         basename: ()=>{},
@@ -15,4 +16,4 @@ if(window && !window.electronApi){
 }
 
 
- 
+

@@ -25,15 +25,17 @@ const Index = (props) => {
 
   useEffect(() => {
     const lang = getLocale()
-    const { setLang, changeLang, serverState } = window.electronApi
+    const { setLang, changeLang, getConfig } = window.electronApi
     setLang(lang)
     changeLang((event, arg) => {
       setLocale(arg, false);
       window.localStorage.setItem('usl', true)
     })
-    serverState((event, arg) => {
+    const getServerConfig = async () => {
+      const arg = await getConfig()
       window.localStorage.setItem('serverConfig', JSON.stringify(arg))
-    })
+    };
+    getServerConfig()
   }, []);
 
   const saveFile = async (filePath) => {

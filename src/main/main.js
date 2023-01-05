@@ -89,6 +89,8 @@ function createWindow(port, lang) {
     mainWindow.webContents.send('serverStart', { port, lang })
   });
 
+  ipcMain.handle('getConfig', () => ({ port, lang }))
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
