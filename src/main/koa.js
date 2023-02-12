@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-01-29 15:43:57
- * @LastEditTime: 2022-11-18 16:27:25
+ * @LastEditTime: 2023-01-09 19:31:18
  * @LastEditors: xiaobei
  */
 import Koa from 'koa';
@@ -42,15 +42,17 @@ router.get('/file/:id/:name', async (ctx, next) => {
             const stats = fs.statSync(file.path);
             const filename = path.basename(file.path)
             const { start, end } = parseRange(range, stats.size)
+            ctx.set('Accept-Ranges', 'bytes');
             ctx.set('Content-Type', 'application/octet-stream');
             ctx.set('Content-Disposition', 'attachment; filename=' + encodeURIComponent(filename));
-            ctx.set('Content-Length', end === stats.size ? stats.size : end + 1);
+            ctx.set('Content-Length', end - start + 1);
             ctx.set('Content-Range', `bytes ${start}-${end}/${stats.size}`);
             ctx.body = fs.createReadStream(file.path, {
                 start,
                 end
             });
         } catch (error) {
+            console.log('error', error);
             ctx.status = 404
             ctx.body = '文件不存在'
         }

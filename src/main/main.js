@@ -6,6 +6,8 @@ import { tryUsePort } from './helper';
 
 
 const defaultPort = 23456;
+let port
+let lang
 let mainWindow = null;
 const isMac = process.platform === 'darwin';
 const isDev = process.env.NODE_ENV === 'development';
@@ -121,9 +123,9 @@ const genMenu = (lang) => {
 
 
 app.on('ready', async () => {
-  const port = await tryUsePort(defaultPort)
+  port = await tryUsePort(defaultPort)
   startServer(port)
-  const lang = app.getLocale()
+  lang = app.getLocale()
   createWindow(port, lang)
   genMenu(lang === 'zh-CN' ? 'zh-CN' : 'en-US')
 });
@@ -136,6 +138,6 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (mainWindow === null) {
-    createWindow();
+    createWindow(port, lang);
   }
 });
