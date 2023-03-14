@@ -25,7 +25,7 @@ const Index = (props) => {
 
   useEffect(() => {
     const lang = getLocale()
-    const { setLang, changeLang, serverState } = window.electronApi
+    const { setLang, changeLang, serverState,  } = window.electronApi
     setLang(lang)
     changeLang((event, arg) => {
       setLocale(arg, false);
@@ -39,6 +39,7 @@ const Index = (props) => {
   const saveFile = async (filePath) => {
     // 检测是否是文件夹，如果是，则报错，不是则存储
     const { statSync, basename, copy, isFile } = window.electronApi
+    console.log('window.electronApi', window.electronApi);
     const stats = statSync(filePath)
     const fileName = basename(filePath)
     if (isFile(filePath)) {

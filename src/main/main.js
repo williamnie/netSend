@@ -85,7 +85,7 @@ function createWindow(port, lang) {
         slashes: true,
       }),
     );
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
   }
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('serverStart', { port, lang })
@@ -97,6 +97,7 @@ function createWindow(port, lang) {
 
 }
 
+ipcMain.on('getConfig', (event) => (event.returnValue = { port, lang }))
 
 ipcMain.on('syncLanguage', (event, arg) => {
   genMenu(arg)
@@ -117,8 +118,8 @@ const genMenu = (lang) => {
       }
     }
   }
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+  // const menu = Menu.buildFromTemplate(template)
+  // Menu.setApplicationMenu(menu)
 }
 
 

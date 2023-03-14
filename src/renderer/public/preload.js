@@ -14,5 +14,6 @@ contextBridge.exposeInMainWorld('electronApi', {
     basename: (filePath) => path.basename(filePath),
     copy: (string) => clipboard.writeText(string),
     networkInterfaces: () => os.networkInterfaces(),
-    openUrl: (url) => shell.openExternal(url)
+    openUrl: (url) => shell.openExternal(url),
+    getConfig: () => ipcRenderer.sendSync('getConfig', ''),
 })

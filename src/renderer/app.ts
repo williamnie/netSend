@@ -11,6 +11,7 @@ if(window && !window.electronApi){
         copy: ()=>{},
         networkInterfaces: ()=>{},
         openUrl: ()=>{},
+        getConfig: ()=>{},
     }
 }
 

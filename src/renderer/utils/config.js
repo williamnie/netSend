@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-02-04 22:56:52
- * @LastEditTime: 2022-11-16 22:14:05
+ * @LastEditTime: 2023-03-14 21:55:30
  * @LastEditors: xiaobei
  */
 
@@ -25,10 +25,14 @@ function getIPAddress() {
 
 const getPort = () => {
     let config = window.localStorage.getItem('serverConfig')
-    if (config) {
+    if (false && config) {
         config = JSON.parse(config)
+    } else {
+        const { getConfig } = window.electronApi
+        config = getConfig && getConfig()
+        window.localStorage.setItem('serverConfig', JSON.stringify(config))
     }
-    return config && config.port || ''
+    return config && config.port || 23456
 }
 
 
