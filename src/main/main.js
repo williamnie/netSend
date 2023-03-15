@@ -85,7 +85,7 @@ function createWindow(port, lang) {
         slashes: true,
       }),
     );
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
   }
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.send('serverStart', { port, lang })
@@ -118,8 +118,8 @@ const genMenu = (lang) => {
       }
     }
   }
-  // const menu = Menu.buildFromTemplate(template)
-  // Menu.setApplicationMenu(menu)
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 }
 
 
