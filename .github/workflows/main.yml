@@ -33,7 +33,7 @@ jobs:
 
       # step2: install node env
       - name: Install Node.js
-        uses: actions/upload-artifact@v2
+        uses: actions/setup-node@v3
 
       # step3: npm install
       - name: npm install
