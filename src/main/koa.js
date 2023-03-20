@@ -1,7 +1,7 @@
 /*
  * @Author: xiaobei
  * @Date: 2021-01-29 15:43:57
- * @LastEditTime: 2023-01-09 19:31:18
+ * @LastEditTime: 2023-03-20 21:30:34
  * @LastEditors: xiaobei
  */
 import Koa from 'koa';
@@ -23,7 +23,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const parseRange = (range, size) => {
     if (range) {
         const [start, end] = range.replace('bytes=', '').split('-')
-        return { start: +start, end: +end || size }
+        return { start: +start, end: end && end <= size ? end : size }
     } else {
         return { start: 0, end: size }
     }
@@ -42,10 +42,17 @@ router.get('/file/:id/:name', async (ctx, next) => {
             const stats = fs.statSync(file.path);
             const filename = path.basename(file.path)
             const { start, end } = parseRange(range, stats.size)
+
+            if (start >= stats.size || end > stats.size) {
+                ctx.response.status = 416;
+                ctx.body = "";
+                return;
+            }
+            ctx.response.status = 206;
             ctx.set('Accept-Ranges', 'bytes');
             ctx.set('Content-Type', 'application/octet-stream');
             ctx.set('Content-Disposition', 'attachment; filename=' + encodeURIComponent(filename));
-            ctx.set('Content-Length', end - start + 1);
+            ctx.set('Content-Length', !range ? end - start : end - start + 1);
             ctx.set('Content-Range', `bytes ${start}-${end}/${stats.size}`);
             ctx.body = fs.createReadStream(file.path, {
                 start,
